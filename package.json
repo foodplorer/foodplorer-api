@@ -1,0 +1,9 @@
+{
+  "name": "foodplorer-appi",
+  "version": "1.0.0",
+  "description": "exploring existing restaurant",
+  "main": "index.js",
+  "repository": "git@github.com:foodplorer/foodplorer-api.git",
+  "author": "Ilham Alamsyah <ilhamalamsyah510@gmail.com>",
+  "license": "yes"
+}

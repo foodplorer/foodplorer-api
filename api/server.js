@@ -22,7 +22,7 @@ const apolloServer = new ApolloServer({
   },
 });
 
-apolloServer.applyMiddleware({ app, path: 'foodplorer-api/v1' });
+apolloServer.applyMiddleware({ app, path: '/foodplorer-api/v1' });
 
 const server = createServer(app);
 

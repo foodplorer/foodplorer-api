@@ -4,6 +4,8 @@ const server = require('./api/server');
 
 const port = process.env.PORT || 8080;
 
+console.log('dot env:-', process.env.DEV_DB_USERNAME);
+
 process.on('uncaughtException', (err) => {
   console.error(`${new Date().toUTCString()} uncaughtException: `, err);
   process.exit(0);

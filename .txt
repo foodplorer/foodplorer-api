@@ -1,0 +1,8 @@
+how to handle if you have error "parsing url undefined" when run db migration
+
+- install pg globally (npm/yarn)
+- export database in terminal : example
+- on db config.js
+    - set use_env_variable:
+        example: "use_env_variable: process.env.DEV_DATABASE_URL,"
+- try to db migrate again

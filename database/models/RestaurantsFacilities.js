@@ -12,16 +12,18 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      restaurant_id: {
+      restaurantId: {
         type: DataTypes.INTEGER,
+        field: 'restaurant_id',
         allowNull: false,
         references: {
           model: Restaurants,
           key: 'id',
         },
       },
-      facility_id: {
+      facilityId: {
         type: DataTypes.INTEGER,
+        field: 'facility_id',
         allowNull: false,
         references: {
           model: Facilities,
@@ -39,21 +41,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         type: DataTypes.DATE,
+        field: 'deleted_at',
       },
     },
     {
       tableName: 'restaurants_facilities',
     }
   );
-  RestaurantsFacilities.associate = (models) => {
-    RestaurantsFacilities.belongsToMany(models.Restaurants, {
-      through: RestaurantsFacilities,
-    });
-    RestaurantsFacilities.belongsToMany(models.Facilities, {
-      through: RestaurantsFacilities,
-    });
-  };
   return RestaurantsFacilities;
 };

@@ -18,9 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      main_image_url: {
+      mainImageUrl: {
         type: DataTypes.STRING,
         allowNull: false,
+        field: 'main_image_url',
       },
       createdAt: {
         allowNull: false,
@@ -33,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         allowNull: true,
         type: DataTypes.DATE,
         field: 'deleted_at',
@@ -46,11 +47,26 @@ module.exports = (sequelize, DataTypes) => {
   Restaurants.associate = (models) => {
     Restaurants.hasMany(models.RestaurantImages, {
       foreignKey: 'restaurant_id',
-      as: 'restaurant_images',
+      as: 'restaurantImages',
     });
     Restaurants.hasMany(models.RestaurantMenuImages, {
       foreignKey: 'restaurant_id',
-      as: 'restaurant_menu_images',
+      as: 'restaurantMenuImages',
+    });
+    Restaurants.hasMany(models.RestaurantOperationalHours, {
+      foreignKey: 'restaurant_id',
+      as: 'restaurantOperationalHours',
+    });
+
+    Restaurants.belongsToMany(models.Facilities, {
+      through: 'RestaurantsFacilities',
+      as: 'facilities',
+      foreignKey: 'restaurant_id',
+    });
+    Restaurants.belongsToMany(models.Categories, {
+      through: 'RestaurantsCategories',
+      as: 'categories',
+      foreignKey: 'restaurant_id',
     });
   };
   return Restaurants;

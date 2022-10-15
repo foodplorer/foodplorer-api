@@ -12,24 +12,28 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      clock_in_time: {
+      clockInTime: {
         type: DataTypes.TIME,
         allowNull: true,
+        field: 'clock_in_time',
       },
-      clock_out_time: {
+      clockOutTime: {
         type: DataTypes.TIME,
         allowNull: true,
+        field: 'clock_out_time',
       },
-      restaurant_id: {
+      restaurantId: {
         type: DataTypes.INTEGER,
+        field: 'restaurant_id',
         allowNull: false,
         references: {
           model: Restaurants,
           key: 'id',
         },
       },
-      day_id: {
+      dayId: {
         type: DataTypes.INTEGER,
+        field: 'day_id',
         allowNull: false,
         references: {
           model: Days,
@@ -47,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         allowNull: true,
         type: DataTypes.DATE,
         field: 'deleted_at',
@@ -57,12 +61,15 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'restaurant_operational_hours',
     }
   );
+
   RestaurantOperationalHours.associate = (models) => {
-    RestaurantOperationalHours.belongsToMany(models.Restaurant, {
-      through: RestaurantOperationalHours,
+    RestaurantOperationalHours.belongsTo(models.Restaurants, {
+      foreignKey: 'restaurant_id',
+      as: 'restaurants',
     });
-    RestaurantOperationalHours.belongsToMany(models.Days, {
-      through: RestaurantOperationalHours,
+    RestaurantOperationalHours.belongsTo(models.Days, {
+      foreignKey: 'day_id',
+      as: 'day',
     });
   };
   return RestaurantOperationalHours;

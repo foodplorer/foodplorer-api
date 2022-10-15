@@ -1,5 +1,7 @@
 const { gql } = require('apollo-server-express');
 
+const restaurantType = require('../../modules/restaurant/schema/restaurant');
+
 const rootType = gql`
   type Query {
     root: String
@@ -10,4 +12,4 @@ const rootType = gql`
   }
 `;
 
-module.exports = [rootType];
+module.exports = [rootType, restaurantType];

@@ -8,14 +8,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      clock_in_time: {
+      clockInTime: {
         type: Sequelize.TIME,
+        field: 'clock_in_time',
       },
-      clock_out_time: {
+      clockOutTime: {
         type: Sequelize.TIME,
+        field: 'clock_out_time',
       },
-      restaurant_id: {
+      restaurantId: {
         type: Sequelize.INTEGER,
+        field: 'restaurant_id',
         references: {
           model: {
             tableName: 'restaurants',
@@ -23,8 +26,9 @@ module.exports = {
           key: 'id',
         },
       },
-      day_id: {
+      dayId: {
         type: Sequelize.INTEGER,
+        field: 'day_id',
         references: {
           model: {
             tableName: 'days',
@@ -35,13 +39,16 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
       },
       updatedAt: {
         allowNull: true,
         type: Sequelize.DATE,
+        field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         type: Sequelize.DATE,
+        field: 'deleted_at',
       },
     });
   },

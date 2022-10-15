@@ -8,8 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      restaurant_id: {
+      restaurantId: {
         type: Sequelize.INTEGER,
+        field: 'restaurant_id',
         references: {
           model: {
             tableName: 'restaurants',
@@ -17,8 +18,9 @@ module.exports = {
           key: 'id',
         },
       },
-      facility_id: {
+      facilityId: {
         type: Sequelize.INTEGER,
+        field: 'facility_id',
         references: {
           model: {
             tableName: 'facilities',
@@ -29,13 +31,16 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
       },
       updatedAt: {
         allowNull: true,
         type: Sequelize.DATE,
+        field: 'updated_at',
       },
       deleted_at: {
         type: Sequelize.DATE,
+        field: 'deleted_at',
       },
     });
   },

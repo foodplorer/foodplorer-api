@@ -10,13 +10,15 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      category_code: {
+      categoryCode: {
         type: DataTypes.STRING,
         allowNull: false,
+        field: 'category_code',
       },
-      category_name: {
+      categoryName: {
         type: DataTypes.STRING,
         allowNull: false,
+        field: 'category_name',
       },
       createdAt: {
         allowNull: false,
@@ -29,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         allowNull: true,
         type: DataTypes.DATE,
         field: 'deleted_at',
@@ -39,5 +41,12 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'categories',
     }
   );
+  Categories.associate = (models) => {
+    Categories.belongsToMany(models.Restaurants, {
+      through: 'RestaurantsCategories',
+      as: 'restaurants',
+      foreignKey: 'category_id',
+    });
+  };
   return Categories;
 };

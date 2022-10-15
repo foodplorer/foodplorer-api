@@ -121,6 +121,16 @@ module.exports = {
     restaurantDetail: async (_, { id }) => {
       try {
         const restaurant = await models.Restaurants.findByPk(id, {
+          order: [
+            [
+              {
+                model: models.RestaurantOperationalHours,
+                as: 'restaurantOperationalHours',
+              },
+              'dayId',
+              'ASC',
+            ],
+          ],
           include: [
             {
               model: models.RestaurantImages,

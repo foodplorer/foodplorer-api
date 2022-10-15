@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      day_name: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         allowNull: true,
         type: DataTypes.DATE,
         field: 'deleted_at',
@@ -35,5 +35,11 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'days',
     }
   );
+  Days.associate = (models) => {
+    Days.hasMany(models.RestaurantOperationalHours, {
+      foreignKey: 'day_id',
+      as: 'restaurantOperationalHours',
+    });
+  };
   return Days;
 };

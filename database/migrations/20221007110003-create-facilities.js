@@ -8,22 +8,27 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      facility_code: {
+      facilityCode: {
         type: Sequelize.STRING,
+        field: 'facility_code',
       },
-      facility_name: {
+      facilityName: {
         type: Sequelize.STRING,
-      },
-      deleted_at: {
-        type: Sequelize.DATE,
+        field: 'facility_name',
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'updated_at',
+      },
+      deletedAt: {
+        type: Sequelize.DATE,
+        field: 'deleted_at',
       },
     });
   },

@@ -8,12 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      image_url: {
+      imageUrl: {
         type: Sequelize.STRING,
         allowNull: false,
+        field: 'image_url',
       },
-      restaurant_id: {
+      restaurantId: {
         type: Sequelize.INTEGER,
+        field: 'restaurant_id',
         references: {
           model: 'restaurants',
           key: 'id',
@@ -22,12 +24,15 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
       },
       updatedAt: {
         type: Sequelize.DATE,
+        field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         type: Sequelize.DATE,
+        field: 'deleted_at',
       },
     });
   },

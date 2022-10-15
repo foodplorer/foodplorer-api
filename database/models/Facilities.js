@@ -10,13 +10,15 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      facility_code: {
+      facilityCode: {
         type: DataTypes.STRING,
         allowNull: false,
+        field: 'facility_code',
       },
-      facility_name: {
+      facilityName: {
         type: DataTypes.STRING,
         allowNull: false,
+        field: 'facility_name',
       },
       createdAt: {
         allowNull: false,
@@ -29,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         allowNull: true,
         type: DataTypes.DATE,
         field: 'deleted_at',
@@ -39,5 +41,12 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'facilities',
     }
   );
+  Facilities.associate = (models) => {
+    Facilities.belongsToMany(models.Restaurants, {
+      through: 'RestaurantsFacilities',
+      as: 'restaurants',
+      foreignKey: 'facility_id',
+    });
+  };
   return Facilities;
 };

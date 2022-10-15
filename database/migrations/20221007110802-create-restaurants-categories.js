@@ -2,8 +2,9 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('restaurants_categories', {
-      restaurant_id: {
+      restaurantId: {
         type: Sequelize.INTEGER,
+        field: 'restaurant_id',
         references: {
           model: {
             tableName: 'restaurants',
@@ -11,8 +12,9 @@ module.exports = {
           key: 'id',
         },
       },
-      category_id: {
+      categoryId: {
         type: Sequelize.INTEGER,
+        field: 'category_id',
         references: {
           model: {
             tableName: 'categories',
@@ -23,10 +25,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
       },
       updatedAt: {
         allowNull: true,
         type: Sequelize.DATE,
+        field: 'updated_at',
       },
     });
   },

@@ -14,19 +14,22 @@ module.exports = {
       address: {
         type: Sequelize.STRING,
       },
-      main_image_url: {
+      mainImageUrl: {
         type: Sequelize.STRING,
-      },
-      deleted_at: {
-        type: Sequelize.DATE,
+        field: 'main_image_url',
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
       },
       updatedAt: {
-        allowNull: false,
         type: Sequelize.DATE,
+        field: 'updated_at',
+      },
+      deletedAt: {
+        type: Sequelize.DATE,
+        field: 'deleted_at',
       },
     });
   },

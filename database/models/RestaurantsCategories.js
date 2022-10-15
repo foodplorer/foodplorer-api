@@ -6,16 +6,18 @@ module.exports = (sequelize, DataTypes) => {
   const RestaurantsCategories = sequelize.define(
     'RestaurantsCategories',
     {
-      restaurant_id: {
+      restaurantId: {
         type: DataTypes.INTEGER,
+        field: 'restaurant_id',
         allowNull: false,
         references: {
           model: Restaurants,
           key: 'id',
         },
       },
-      category_id: {
+      categoryId: {
         type: DataTypes.INTEGER,
+        field: 'category_id',
         allowNull: false,
         references: {
           model: Categories,
@@ -38,13 +40,5 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'restaurants_categories',
     }
   );
-  RestaurantsCategories.associate = (models) => {
-    RestaurantsCategories.belongsToMany(models.Restaurants, {
-      through: RestaurantsCategories,
-    });
-    RestaurantsCategories.belongsToMany(models.Categories, {
-      through: RestaurantsCategories,
-    });
-  };
   return RestaurantsCategories;
 };

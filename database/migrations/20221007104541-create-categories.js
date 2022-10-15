@@ -8,23 +8,28 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      category_code: {
+      categoryCode: {
         type: Sequelize.STRING,
+        field: 'category_code',
       },
-      category_name: {
+      categoryName: {
         type: Sequelize.STRING,
+        field: 'category_name',
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        field: 'created_at',
       },
       updatedAt: {
         allowNull: true,
         type: Sequelize.DATE,
+        field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         allowNull: true,
         type: Sequelize.DATE,
+        field: 'deleted_at',
       },
     });
   },

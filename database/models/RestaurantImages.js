@@ -11,12 +11,14 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      image_url: {
+      imageUrl: {
         type: DataTypes.STRING,
         allowNull: false,
+        field: 'image_url',
       },
-      restaurant_id: {
+      restaurantId: {
         type: DataTypes.INTEGER,
+        field: 'restaurant_id',
         allowNull: false,
         references: {
           model: Restaurants,
@@ -34,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         field: 'updated_at',
       },
-      deleted_at: {
+      deletedAt: {
         allowNull: true,
         type: DataTypes.DATE,
         field: 'deleted_at',

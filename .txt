@@ -6,3 +6,9 @@ how to handle if you have error "parsing url undefined" when run db migration
     - set use_env_variable:
         example: "use_env_variable: process.env.DEV_DATABASE_URL,"
 - try to db migrate again
+
+note for join column:
+- make sure alias name is the same between on the model, include/join, and attributes name of a schema
+    example: 
+    - you can check for alias "restaurantImages" Restaurant model associate and recipelist resolver when include
+    - and you can check attributes name in Restaurant schema for  "restaurantImages"

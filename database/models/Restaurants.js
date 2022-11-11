@@ -10,6 +10,12 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
+      slug: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        defaultValue: 'slug-test',
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,

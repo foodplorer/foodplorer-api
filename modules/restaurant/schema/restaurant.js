@@ -8,6 +8,7 @@ module.exports = gql`
     id: Int!
     name: String!
     address: String!
+    slug: String!
     mainImageUrl: String!
     categories: [RestaurantCategory]
     facilities: [RestaurantFacility]

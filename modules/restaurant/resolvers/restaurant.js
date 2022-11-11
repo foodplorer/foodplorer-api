@@ -95,6 +95,7 @@ module.exports = {
         const getAllRestaurants = await restaurants.map((restaurant) => ({
           id: restaurant.id,
           name: restaurant.name,
+          slug: restaurant.slug,
           address: restaurant.address,
           mainImageUrl: restaurant.mainImageUrl,
           ...restaurant,

@@ -35,6 +35,7 @@ module.exports = gql`
   extend type Query {
     restaurantList(page: Int, pageSize: Int): RestaurantListData
     restaurantDetail(id: ID!): Restaurant
+    getRestaurantBySlug(slug: String!): Restaurant
   }
 
   type RestaurantMenuImages {

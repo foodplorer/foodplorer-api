@@ -192,5 +192,80 @@ module.exports = {
         throw new ApolloError(error);
       }
     },
+    getRestaurantBySlug: async (_, { slug }) => {
+      try {
+        const restaurant = await models.Restaurants.findOne({
+          where: { slug },
+          order: [
+            [
+              {
+                model: models.RestaurantOperationalHours,
+                as: 'restaurantOperationalHours',
+              },
+              'dayId',
+              'ASC',
+            ],
+          ],
+          include: [
+            {
+              model: models.RestaurantImages,
+              as: 'restaurantImages',
+              required: true,
+              where: {
+                deletedAt: {
+                  [Op.is]: null,
+                },
+              },
+            },
+            {
+              model: models.RestaurantMenuImages,
+              as: 'restaurantMenuImages',
+              required: false,
+              where: {
+                deletedAt: {
+                  [Op.is]: null,
+                },
+              },
+            },
+            {
+              model: models.Categories,
+              as: 'categories',
+              required: false,
+            },
+            {
+              model: models.Facilities,
+              as: 'facilities',
+              required: false,
+            },
+            {
+              model: models.RestaurantOperationalHours,
+              as: 'restaurantOperationalHours',
+              required: false,
+              where: {
+                deletedAt: {
+                  [Op.is]: null,
+                },
+              },
+              include: [
+                {
+                  model: models.Days,
+                  as: 'day',
+                  required: false,
+                },
+              ],
+            },
+          ],
+        });
+        console.log('restoran images: ', restaurant);
+
+        if (restaurant === null || restaurant.deletedAt !== null) {
+          throw new UserInputError('Restaurant not found');
+        }
+
+        return restaurant;
+      } catch (error) {
+        throw new ApolloError(error);
+      }
+    },
   },
 };

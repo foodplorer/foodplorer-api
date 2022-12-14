@@ -32,8 +32,17 @@ module.exports = gql`
     totalPage: Int
   }
 
+  input RestaurantFilterInput {
+    categoryIds: [ID]
+  }
+
   extend type Query {
-    restaurantList(page: Int, pageSize: Int): RestaurantListData
+    restaurantList(
+      page: Int
+      pageSize: Int
+      search: String
+      filter: RestaurantFilterInput
+    ): RestaurantListData
     restaurantDetail(id: ID!): Restaurant
     getRestaurantBySlug(slug: String!): Restaurant
   }

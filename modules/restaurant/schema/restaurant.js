@@ -34,6 +34,7 @@ module.exports = gql`
 
   input RestaurantFilterInput {
     categoryIds: [ID]
+    excludeRestaurantId: ID
   }
 
   extend type Query {

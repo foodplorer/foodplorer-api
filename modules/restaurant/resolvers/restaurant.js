@@ -9,17 +9,67 @@ const {
 
 module.exports = {
   Query: {
-    restaurantList: async (_, { pageSize = 10, page = 0 }) => {
+    restaurantList: async (
+      _,
+      { pageSize = 10, page = 0, search = '', filter }
+    ) => {
       maxPageSizeValidation(pageSize);
       const offset = setPage(pageSize, page);
+      const applyCategoryIdsFilter = filter?.categoryIds;
+      const applyExcludeRestaurantId = filter?.excludeRestaurantId;
 
-      try {
-        const restaurants = await models.Restaurants.findAll({
-          where: {
+      let whereClause;
+
+      let categoryFilter = {
+        deletedAt: {
+          [Op.is]: null,
+        },
+      };
+
+      if (search?.length <= 0 || filter.categoryIds?.length === 0) {
+        whereClause = {
+          deletedAt: {
+            [Op.is]: null,
+          },
+        };
+      }
+
+      if (applyExcludeRestaurantId) {
+        whereClause = {
+          deletedAt: {
+            [Op.is]: null,
+          },
+          id: {
+            [Op.ne]: applyExcludeRestaurantId,
+          },
+        };
+      }
+
+      if (search.length > 0) {
+        whereClause = {
+          deletedAt: {
+            [Op.is]: null,
+          },
+          name: {
+            [Op.iLike]: `%${search}%`,
+          },
+        };
+      }
+
+      if (filter) {
+        if (applyCategoryIdsFilter?.length > 0) {
+          categoryFilter = {
             deletedAt: {
               [Op.is]: null,
             },
-          },
+            '$categories.id$': { [Op.in]: filter?.categoryIds },
+          };
+        }
+      }
+
+      try {
+        const restaurants = await models.Restaurants.findAll({
+          where: whereClause,
           order: [
             ['created_at', 'DESC'],
             [
@@ -58,6 +108,7 @@ module.exports = {
               model: models.Categories,
               as: 'categories',
               required: false,
+              where: categoryFilter,
             },
             {
               model: models.Facilities,
@@ -84,7 +135,7 @@ module.exports = {
           ],
         });
 
-        const count = await models.Restaurants.count({
+        let count = await models.Restaurants.count({
           where: {
             deletedAt: {
               [Op.is]: null,
@@ -92,7 +143,13 @@ module.exports = {
           },
         });
 
-        const getAllRestaurants = await restaurants.map((restaurant) => ({
+        if (search.length > 0) {
+          count = await models.Restaurants.count({
+            where: whereClause,
+          });
+        }
+
+        let getAllRestaurants = await restaurants.map((restaurant) => ({
           id: restaurant.id,
           name: restaurant.name,
           slug: restaurant.slug,
@@ -103,6 +160,13 @@ module.exports = {
           updatedAt: restaurant.updatedAt,
           deletedAt: restaurant.deletedAt,
         }));
+
+        if (applyCategoryIdsFilter) {
+          getAllRestaurants = await restaurants.filter(
+            (restaurant) => restaurant.categories.length > 0
+          );
+          count = getAllRestaurants.length;
+        }
 
         const metaData = {
           pageSize,
@@ -256,7 +320,6 @@ module.exports = {
             },
           ],
         });
-        console.log('restoran images: ', restaurant);
 
         if (restaurant === null || restaurant.deletedAt !== null) {
           throw new UserInputError('Restaurant not found');
